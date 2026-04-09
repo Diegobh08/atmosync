@@ -1,7 +1,9 @@
 import { useState } from "react";
 import "./Login.css";
 
-function Login() {
+
+
+function Login({setPage}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -55,7 +57,7 @@ function Login() {
                 <p className="forgot">FORGOT YOUR PASSWORD?</p>
 
                 <p className="signup">
-                    New here? <span>Sign Up</span>
+                    New here? <span onClick={() => setPage("Register")}>Sign Up</span>
                 </p>
 
             </form>

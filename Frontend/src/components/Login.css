@@ -4,10 +4,13 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
+body {
+    height: 100vh;
+    background: #123; /* tu fondo oscuro */
+}
 
 .container {
     height: 100vh;
-    background: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
