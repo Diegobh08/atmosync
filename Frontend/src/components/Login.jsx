@@ -17,7 +17,7 @@ function Login() {
 
         // Simulación de login (luego lo conectamos a backend)
         if (username === "admin" && password === "1234") {
-            alert("Login exitoso 🚀");
+            alert("Login exitoso ");
             setError("");
         } else {
             setError("Usuario o contraseña incorrectos");
@@ -46,10 +46,7 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <div className="remember">
-                    <input type="checkbox" />
-                    <span>Remember me</span>
-                </div>
+
 
                 {error && <p className="error">{error}</p>}
 
