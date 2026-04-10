@@ -47,14 +47,14 @@ function Register({setPage}) {
                 <h2>Registro</h2>
                 <input
                     type="gmail"
-                    placeholder="Gmail"
+                    placeholder="Digita tu correo electronico"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
                 <input
                     type="text"
-                    placeholder="Username"
+                    placeholder="Crea un nombre de usuario"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                 />
@@ -63,7 +63,7 @@ function Register({setPage}) {
 
                 <input
                     type="password"
-                    placeholder="Password"
+                    placeholder="Crea una contraseña"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
@@ -74,13 +74,13 @@ function Register({setPage}) {
 
                 {error && <p className="error">{error}</p>}
 
-                <button type="submit">REGISTRO</button>
+                <button type="submit">CREAR CUENTA</button>
 
-                <p className="forgot">FORGOT YOUR PASSWORD?</p>
+                <p className="forgot">OLVIDASTE TU CONTRASEÑA?</p>
 
                 <p className="signup">
-                    Already have an account?{" "}
-                    <span onClick={() => setPage("login")}>Login</span>
+                    Ya tienes una cuenta?{" "}
+                    <span onClick={() => setPage("login")}>Iniciar sesión</span>
                 </p>
 
             </form>
