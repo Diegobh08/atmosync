@@ -19,7 +19,7 @@ function Login({setPage}) {
 
         // Simulación de login (luego lo conectamos a backend)
         if (username === "admin" && password === "1234") {
-            alert("Login exitoso ");
+            alert("Inicio exitoso ");
             setError("");
         } else {
             setError("Usuario o contraseña incorrectos");
@@ -32,18 +32,18 @@ function Login({setPage}) {
 
                 <div className="icon"></div>
 
-                <h2>Login</h2>
+                <h2>Acceso</h2>
 
                 <input
                     type="text"
-                    placeholder="Username"
+                    placeholder="Usuario"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                 />
 
                 <input
                     type="password"
-                    placeholder="Password"
+                    placeholder="Contraseña"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
@@ -52,12 +52,12 @@ function Login({setPage}) {
 
                 {error && <p className="error">{error}</p>}
 
-                <button type="submit">LOGIN</button>
+                <button type="submit">INICIAR SESIÓN</button>
 
-                <p className="forgot">FORGOT YOUR PASSWORD?</p>
+
 
                 <p className="signup">
-                    New here? <span onClick={() => setPage("Register")}>Sign Up</span>
+                    NO TIENES UNA CUENTA? <span onClick={() => setPage("Register")}>Regístrate</span>
                 </p>
 
             </form>
