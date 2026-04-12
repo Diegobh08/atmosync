@@ -19,89 +19,6 @@
   margin: 0 auto;
 }
 
-/* ── Header ── */
-.dash-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 32px;
-}
-
-.dash-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 18px;
-  font-weight: 700;
-  color: #0f172a;
-  letter-spacing: -0.3px;
-}
-
-.dash-logo svg {
-  width: 30px;
-  height: 30px;
-}
-
-.dash-header-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.dash-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #dcfce7;
-  color: #16a34a;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  padding: 4px 12px;
-  border-radius: 20px;
-}
-
-.dash-badge::before {
-  content: '';
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #16a34a;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-.dash-logout {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 8px;
-  background: #fff;
-  color: #64748b;
-  font-size: 13px;
-  font-weight: 500;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
-}
-
-.dash-logout svg {
-  width: 16px;
-  height: 16px;
-}
-
-.dash-logout:hover {
-  border-color: #ef4444;
-  color: #ef4444;
-}
-
 /* ── Summary cards ── */
 .dash-cards {
   display: grid;
@@ -280,9 +197,5 @@ tbody td {
 
   .dash-cards {
     grid-template-columns: 1fr;
-  }
-
-  .dash-logo span {
-    display: none;
   }
 }
