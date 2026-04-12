@@ -16,9 +16,16 @@ function Register({ setPage }) {
       return;
     }
 
-    localStorage.setItem("user", JSON.stringify({ email, username, password }));
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    if (users.find((u) => u.email === email)) {
+      setError("Ya existe una cuenta con ese correo");
+      return;
+    }
+
+    users.push({ email, username, password });
+    localStorage.setItem("users", JSON.stringify(users));
     setError("");
-    alert("Registro exitoso");
+    setPage("login");
   };
 
   return (

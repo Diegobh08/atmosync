@@ -13,9 +13,9 @@ function Login({ setPage }) {
       setError("Completa todos los campos");
       return;
     }
-    if (email === "admin@atmosync.com" && password === "1234") {
+    if (email === "admin@gmail.com" && password === "Admin123") {
       setError("");
-      alert("Inicio de sesión exitoso");
+      setPage("dashboard");
     } else {
       setError("Correo o contraseña incorrectos");
     }
