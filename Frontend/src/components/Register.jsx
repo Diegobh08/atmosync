@@ -8,7 +8,7 @@ function Register({ setPage }) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     if (!email || !username || !password) {
@@ -16,16 +16,24 @@ function Register({ setPage }) {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    if (users.find((u) => u.email === email)) {
-      setError("Ya existe una cuenta con ese correo");
-      return;
-    }
+    try {
+      const res = await fetch("http://127.0.0.1:3000/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, username, password }),
+      });
 
-    users.push({ email, username, password });
-    localStorage.setItem("users", JSON.stringify(users));
-    setError("");
-    setPage("login");
+      const data = await res.text();
+
+      if (data === "Usuario guardado") {
+        setError("");
+        setPage("login");
+      } else {
+        setError(data); // muestra el error que mande el servidor
+      }
+    } catch (err) {
+      setError("No se pudo conectar al servidor");
+    }
   };
 
   return (

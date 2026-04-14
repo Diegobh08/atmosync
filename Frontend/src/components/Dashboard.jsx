@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid,
   Tooltip, Legend, ResponsiveContainer,
@@ -6,41 +6,66 @@ import {
 import "./dashboard.css";
 import Navbar from "./Navbar";
 
-// ── Datos simulados ──
-const datosMock = [
-  { id: 1, hora: "08:00", temperatura: 22, humedad: 65 },
-  { id: 2, hora: "08:30", temperatura: 23, humedad: 63 },
-  { id: 3, hora: "09:00", temperatura: 24, humedad: 61 },
-  { id: 4, hora: "09:30", temperatura: 25, humedad: 59 },
-  { id: 5, hora: "10:00", temperatura: 26, humedad: 57 },
-  { id: 6, hora: "10:30", temperatura: 27, humedad: 55 },
-  { id: 7, hora: "11:00", temperatura: 28, humedad: 54 },
-  { id: 8, hora: "11:30", temperatura: 29, humedad: 52 },
-  { id: 9, hora: "12:00", temperatura: 30, humedad: 50 },
-  { id: 10, hora: "12:30", temperatura: 28, humedad: 53 },
-];
-
 export default function Dashboard({ setPage }) {
-  const [datos] = useState(datosMock);
 
-  const ultimoRegistro = datos[datos.length - 1] || {};
+  // ✅ ESTADO
+  const [datos, setDatos] = useState([]);
+
+  // ✅ EFECTO (traer datos)
+  useEffect(() => {
+
+    const obtenerDatos = () => {
+      fetch("http://192.168.1.77:4000/lecturas")
+          .then(res => res.json())
+          .then(data => {
+            console.log("Datos del servidor:", data);
+            const datosFormateados = data.map((item, index) => ({
+              id: index + 1,
+              hora: new Date().toLocaleTimeString(),
+              temperatura: item.temperatura,
+              humedad: item.humedad
+            }));
+
+            setDatos(datosFormateados.slice(0, 10));
+          })
+          .catch(err => console.error(err));
+    };
+
+    obtenerDatos();
+
+    const interval = setInterval(obtenerDatos, 3000);
+
+    return () => clearInterval(interval);
+
+  }, []);
+
+    const ultimoRegistro = datos[0] || {};
+
 
   return (
-    <div className="dash-layout">
-      <Navbar setPage={setPage} activePage="dashboard" />
-      <main className="dash-main">
+      <div className="dash-layout">
+        <Navbar setPage={setPage} activePage="dashboard" />
 
-        {/* ── Tarjetas de resumen ── */}
-        <div className="dash-cards">
-          <div className="dash-card temp">
-            <span className="card-label">Temperatura actual</span>
-            <span className="card-value">{ultimoRegistro.temperatura ?? "--"}°C</span>
+        <main className="dash-main">
+
+          {/* TARJETAS */}
+          <div className="dash-cards">
+            <div className="dash-card temp">
+              <span className="card-label">Temperatura actual</span>
+              <span className="card-value">
+              {ultimoRegistro.temperatura ?? "--"}°C
+            </span>
+            </div>
+
+            <div className="dash-card hum">
+              <span className="card-label">Humedad actual</span>
+              <span className="card-value">
+              {ultimoRegistro.humedad ?? "--"}%
+            </span>
+            </div>
           </div>
-          <div className="dash-card hum">
-            <span className="card-label">Humedad actual</span>
-            <span className="card-value">{ultimoRegistro.humedad ?? "--"}%</span>
-          </div>
-        </div>
+
+          {/* AQUÍ SIGUE TODO TU CÓDIGO IGUAL */}
 
         {/* ── Gráficas ── */}
         <div className="dash-charts">

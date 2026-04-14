@@ -7,17 +7,30 @@ function Login({ setPage }) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       setError("Completa todos los campos");
       return;
     }
-    if (email === "admin@gmail.com" && password === "Admin123") {
-      setError("");
-      setPage("dashboard");
-    } else {
-      setError("Correo o contraseña incorrectos");
+
+    try {
+      const res = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.text();
+
+      if (data === "Usuario encontrado") {
+        setError("");
+        setPage("dashboard");
+      } else {
+        setError(data); // muestra "Usuario no existe" o "Contraseña incorrecta"
+      }
+    } catch (err) {
+      setError("No se pudo conectar al servidor");
     }
   };
 

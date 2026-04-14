@@ -4,6 +4,8 @@ import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import About from "./components/About";
 
+
+
 function App() {
     const [page, setPage] = useState("login"); // "login" | "register" | "dashboard" | "about"
 
