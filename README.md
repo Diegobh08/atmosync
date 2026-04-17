@@ -131,25 +131,7 @@ atmosync/
 - ✅ Variables sensibles en .env (no comprometidas)
 - ✅ CORS configurado
 
-## 🛠️ Scripts Disponibles
 
-### Backend
-
-```bash
-npm run dev      # Iniciar con watch mode (desarrollo)
-npm start        # Iniciar servidor
-npm test         # Ejecutar pruebas
-```
-
-### Frontend
-
-```bash
-npm run dev      # Servidor de desarrollo
-npm run build    # Compilar para producción
-npm run preview  # Ver build de producción localmente
-npm run lint     # Verificar estilo de código
-npm run lint:fix # Corregir estilo automáticamente
-```
 
 ## 📊 Mejoras Realizadas
 
@@ -163,7 +145,6 @@ npm run lint:fix # Corregir estilo automáticamente
 - ✨ Agregar loading states en componentes
 - ✨ Documentación clara
 
-## 🐛 Debugging
 
 ### Backend
 
