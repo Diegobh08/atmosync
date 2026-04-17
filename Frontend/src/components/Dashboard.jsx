@@ -15,7 +15,7 @@ export default function Dashboard({ setPage }) {
   useEffect(() => {
 
     const obtenerDatos = () => {
-      fetch("http://192.168.1.77:4000/lecturas")
+      fetch("http://172.16.25.213:4000/lecturas")
           .then(res => res.json())
           .then(data => {
             console.log("Datos del servidor:", data);
