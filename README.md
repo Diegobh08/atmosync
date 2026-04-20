@@ -1,180 +1,83 @@
-# 🌡️ AtmoSync - Sistema de Monitoreo de Temperatura y Humedad
+# 🌡️ AtmoSync — Proyecto IoT de Monitoreo Ambiental
 
-AtmoSync es una aplicación fullstack para monitorear temperatura y humedad en tiempo real. Incluye un backend robusto con Node.js/Express y una interfaz moderna con React/Vite.
+AtmoSync es un proyecto IoT que permite **medir, almacenar y visualizar temperatura y humedad en tiempo real**.
+La idea principal es conectar sensores (por ejemplo, en un ESP32), enviar las lecturas al backend y mostrarlas en una interfaz web con gráficas y tablas.
 
-## 🎯 Características
+## 📌 ¿De qué habla este proyecto?
 
-- ✅ Registro e inicio de sesión de usuarios con contraseñas hasheadas
-- ✅ Recepción de datos de sensores en tiempo real
-- ✅ Gráficas interactivas con historial de lecturas
-- ✅ API REST bien documentada
-- ✅ Validación de datos en backend y frontend
-- ✅ Interfaz responsiva y moderna
+Este proyecto trata de:
 
-## 📋 Requisitos
+- Monitoreo ambiental continuo.
+- Integración de hardware IoT (ESP32 + sensor DHT11/DHT22) con software web.
+- Almacenamiento de lecturas en base de datos (MongoDB).
+- Visualización de datos para tomar decisiones rápidas (estado normal/alerta).
 
-- **Node.js** >= 18.0.0
-- **npm** o **yarn**
-- **MongoDB Atlas** (base de datos en la nube)
+En resumen, AtmoSync busca convertir datos físicos del ambiente en información útil y accesible desde una aplicación web.
 
-## 🚀 Instalación y Configuración
+## 🧩 Arquitectura general
 
-### 1️⃣ Clonar el repositorio
+1. **Dispositivo IoT** captura temperatura y humedad.
+2. **Backend (Node.js + Express + MongoDB)** recibe y guarda los datos.
+3. **Frontend (React + Vite + Recharts)** consulta el backend y muestra:
+   - tarjetas de valores actuales,
+   - gráficas históricas,
+   - tablas con estado de las mediciones.
 
-```bash
-git clone [tu-repositorio]
-cd atmosync
-```
+## ⚙️ Tecnologías
 
-### 2️⃣ Configurar Backend
+- **Frontend:** React, Vite, Recharts
+- **Backend:** Node.js, Express, Mongoose
+- **Base de datos:** MongoDB Atlas
+- **IoT/Hardware:** ESP32 + DHT11/DHT22
+
+## 🚀 Puesta en marcha
+
+### 1) Backend
 
 ```bash
 cd backend
 npm install
+node server.js
 ```
 
-Crear archivo `.env` (copiar desde `.env.example`):
-
-```bash
-cp .env.example .env
-```
-
-Editar `.env` con tus credenciales de MongoDB:
+Configura `backend/.env` con:
 
 ```env
-MONGO_URI=mongodb+srv://usuario:contraseña@cluster.mongodb.net/atmosync?retryWrites=true&w=majority
+MONGO_URI=tu_cadena_mongodb
 PORT=4000
 NODE_ENV=development
 ```
 
-### 3️⃣ Configurar Frontend
-
-```bash
-cd ../Frontend
-npm install
-```
-
-Crear archivo `.env` (copiar desde `.env.example`):
-
-```bash
-cp .env.example .env
-```
-
-## 🏃 Ejecutar el Proyecto
-
-### Backend (Terminal 1)
-
-```bash
-cd backend
-node server.js
-```
-
-El servidor estará disponible en: `http://localhost:4000`
-
-### Frontend (Terminal 2)
+### 2) Frontend
 
 ```bash
 cd Frontend
+npm install
 npm run dev
 ```
 
-La aplicación estará disponible en: `http://localhost:5173`
+## 🔌 Endpoints principales
 
-## 📚 API Endpoints
+- `POST /sensor` → recibe y guarda una lectura (`temperatura`, `humedad`)
+- `GET /lecturas` → devuelve lecturas para visualización
+- `POST /register` → registro de usuario
+- `POST /login` → inicio de sesión
 
-### Autenticación
+## 📁 Estructura del repositorio
 
-- `POST /register` - Registrar nuevo usuario
-- `POST /login` - Iniciar sesión
-
-### Sensores
-
-- `POST /sensor` - Guardar lectura del sensor
-- `GET /lecturas` - Obtener últimas lecturas
-- `GET /lecturas/promedio` - Obtener estadísticas
-
-### Utilidad
-
-- `GET /health` - Verificar estado del servidor
-
-## 🏗️ Estructura del Proyecto
-
-```
+```text
 atmosync/
-├── backend/
-│   ├── models/
-│   │   ├── user.js           # Modelo de usuario con validaciones
-│   │   └── HumedadR.js       # Modelo de lecturas de sensor
-│   ├── .env.example          # Variables de entorno (ejemplo)
-│   ├── .gitignore            # Archivos a ignorar en Git
-│   ├── package.json          # Dependencias del backend
-│   └── server.js             # Servidor principal
-│
-├── Frontend/
-│   ├── src/
-│   │   ├── components/       # Componentes React
-│   │   ├── services/
-│   │   │   └── api.js        # Cliente centralizado de API
-│   │   └── App.jsx           # Componente principal
-│   ├── .env.example          # Variables de entorno (ejemplo)
-│   ├── .gitignore            # Archivos a ignorar en Git
-│   ├── package.json          # Dependencias del frontend
-│   └── vite.config.js        # Configuración de Vite
-│
-└── README.md                 # Este archivo
+├── backend/      # API y conexión a MongoDB
+├── Frontend/     # Aplicación web React
+└── README.md
 ```
 
-## 🔒 Seguridad
+## 👥 Equipo
 
-- ✅ Contraseñas hasheadas con bcryptjs
-- ✅ Validación de entrada en todos los endpoints
-- ✅ Variables sensibles en .env (no comprometidas)
-- ✅ CORS configurado
-
-
-
-## 📊 Mejoras Realizadas
-
-- ✨ Refactorización completa del backend a módulos ES6
-- ✨ Modelos mejorados con validaciones y esquemas
-- ✨ Centralización de llamadas a API en servicio único
-- ✨ Manejo de errores consistente
-- ✨ Códigos HTTP adecuados en respuestas
-- ✨ Autenticación mejorada
-- ✨ Eliminar URLs hardcodeadas
-- ✨ Agregar loading states en componentes
-- ✨ Documentación clara
-
-
-### Backend
-
-Si el servidor no inicia:
-
-1. Verificar que MongoDB está accesible:
-   ```bash
-   npm run dev
-   ```
-   Debe mostrar: `✅ Conectado a MongoDB Atlas`
-
-2. Verificar el puerto 4000 no esté en uso:
-   ```bash
-   netstat -ano | findstr :4000  # Windows
-   lsof -i :4000                  # Linux/Mac
-   ```
-
-### Frontend
-
-Si hay errores de CORS, verificar que `VITE_API_URL` en `.env` apunta al backend correcto.
-
-## 📞 Soporte
-
-Para reportar bugs o sugerir mejoras, abre un issue en el repositorio.
+- Richard Montes
+- Ronald Pradilla
+- Diego Barrios
 
 ## 📄 Licencia
 
 ISC
-
----
-
-**Última actualización:** 17 de abril de 2026
-
